@@ -3,11 +3,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadPublications } from "../lib/publications";
 import { getEntryBySlug } from "astro:content";
 
-/* Conteúdo About (Content Collection) */
-const about = await getEntryBySlug("pages", "about");
-if (!about) {
+/* ABOUT (Content Collection) */
+const aboutEntry = await getEntryBySlug("pages", "about");
+
+if (!aboutEntry) {
   throw new Error("About page not found in content collection");
 }
+
+/* Render Markdown → Astro component */
+const { Content: AboutContent } = await aboutEntry.render();
 
 /* Publicações */
 const { journals, conferences } = loadPublications();
@@ -20,22 +24,22 @@ const citation = [...journals, ...conferences];
 
   <!-- ABOUT -->
   <section id="about">
-    <h2>{about.data.title}</h2>
-    <about.Content />
+    <h2>{aboutEntry.data.title}</h2>
+    <AboutContent />
   </section>
 
   <!-- PUBLICATIONS -->
   <section id="publications">
     <h2>Publications</h2>
 
-    <!-- JOURNALS -->
     <h3>Journal Articles</h3>
     <ul>
       {journals.map(p => (
         <li>
           <strong>{p.title}</strong><br />
           {p.author}<br />
-          {p.journal && <em>{p.journal}</em>}{p.year && `, ${p.year}`}<br />
+          {p.journal && <em>{p.journal}</em>}
+          {p.year && `, ${p.year}`}<br />
           {p.doi && (
             <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">
               DOI
@@ -47,14 +51,14 @@ const citation = [...journals, ...conferences];
       ))}
     </ul>
 
-    <!-- CONFERENCES -->
     <h3>Conference Articles</h3>
     <ul>
       {conferences.map(p => (
         <li>
           <strong>{p.title}</strong><br />
           {p.author}<br />
-          {p.booktitle && <em>{p.booktitle}</em>}{p.year && `, ${p.year}`}<br />
+          {p.booktitle && <em>{p.booktitle}</em>}
+          {p.year && `, ${p.year}`}<br />
           {p.doi && (
             <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">
               DOI
