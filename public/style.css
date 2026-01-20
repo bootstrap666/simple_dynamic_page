@@ -28,3 +28,23 @@ ul {
 li {
   margin-bottom: 1.2em;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+  margin-bottom: 2em;
+}
+
+.profile-photo {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%; /* ou 50% se for circular */
+  flex-shrink: 0,
+}
+
+.header-text h1 {
+  margin: 0;
+}
+

@@ -26,23 +26,43 @@ const { title, citation } = Astro.props;
 </head>
 
 <body>
-  <header>
+<header class="header">
+  <img
+    src="/maruo.jpg"
+    alt="Marcos Hideo Maruo"
+    class="profile-photo"
+  />
+
+  <div class="header-text">
     <h1>Dr. Marcos Hideo Maruo</h1>
     <p>Professor of Computing Engineering — UFSM</p>
 
     <div class="profiles">
-      <a href="https://scholar.google.com.br/citations?user=Y1aGfSgAAAAJ" target="_blank">Google Scholar</a>
+      <a href="http://lattes.cnpq.br/1211572915142591" target="_blank">
+        Curriculum Lattes
+      </a>
       ·
-      <a href="https://orcid.org/0000-0002-7946-6705" target="_blank">ORCID</a>
+      <a href="https://scholar.google.com.br/citations?user=Y1aGfSgAAAAJ" target="_blank">
+        Google Scholar
+      </a>
+      ·
+      <a href="https://orcid.org/0000-0002-7946-6705" target="_blank">
+        ORCID
+      </a>
+	.
+      <a href="https://www.linkedin.com/in/marcosmaruo/" target="_blank">
+	LinkedIn
+      </a>	
     </div>
-  </header>
+  </div>
+</header>
 
   <main>
     <slot />
   </main>
 
   <footer>
-    <p>Contact: marcos.maruo@ufsm.br</p>
+    <p>If you wish to contact me, please email marcos.maruo@ufsm.br</p>
   </footer>
 </body>
 </html>

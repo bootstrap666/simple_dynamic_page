@@ -114,10 +114,25 @@ export function loadPublications() {
       year: e.entryTags.year,
       doi: normalizeDOI(e.entryTags.doi)
     };
+const type = e.entryType.toLowerCase();
 
-    if (e.entryType.toLowerCase() === "article") journals.push(f);
-    if (["inproceedings", "conference"].includes(e.entryType.toLowerCase()))
-      conferences.push(f);
+if (type === "article") {
+  journals.push(f);
+}
+
+if (
+  [
+    "inproceedings",
+    "conference",
+    "incollection",
+    "proceedings",
+    "bookchapter"
+  ].includes(type)
+) {
+  conferences.push(f);
+}
+
+  
   });
 
   journals.sort(sortByYearDesc);

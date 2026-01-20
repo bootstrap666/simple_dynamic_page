@@ -1,39 +1,71 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadPublications } from "../lib/publications";
+import { getEntryBySlug } from "astro:content";
 
+/* Conteúdo About (Content Collection) */
+const about = await getEntryBySlug("pages", "about");
+if (!about) {
+  throw new Error("About page not found in content collection");
+}
+
+/* Publicações */
 const { journals, conferences } = loadPublications();
+
+/* Meta tags acadêmicas */
 const citation = [...journals, ...conferences];
 ---
 
 <BaseLayout title="Dr. Marcos Hideo Maruo" citation={citation}>
-  <section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>{about.data.title}</h2>
+    <about.Content />
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
     <h2>Publications</h2>
 
+    <!-- JOURNALS -->
     <h3>Journal Articles</h3>
     <ul>
       {journals.map(p => (
         <li>
           <strong>{p.title}</strong><br />
           {p.author}<br />
-          <em>{p.journal}</em>, {p.year}<br />
-          {p.doi && <a href={`https://doi.org/${p.doi}`} target="_blank">DOI</a>} ·
+          {p.journal && <em>{p.journal}</em>}{p.year && `, ${p.year}`}<br />
+          {p.doi && (
+            <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">
+              DOI
+            </a>
+          )}
+          {" · "}
           <a href={`/bib/${p._key}.bib`}>BibTeX</a>
         </li>
       ))}
     </ul>
 
+    <!-- CONFERENCES -->
     <h3>Conference Articles</h3>
     <ul>
       {conferences.map(p => (
         <li>
           <strong>{p.title}</strong><br />
           {p.author}<br />
-          <em>{p.booktitle}</em>, {p.year}<br />
-          {p.doi && <a href={`https://doi.org/${p.doi}`} target="_blank">DOI</a>} ·
+          {p.booktitle && <em>{p.booktitle}</em>}{p.year && `, ${p.year}`}<br />
+          {p.doi && (
+            <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">
+              DOI
+            </a>
+          )}
+          {" · "}
           <a href={`/bib/${p._key}.bib`}>BibTeX</a>
         </li>
       ))}
     </ul>
   </section>
+
 </BaseLayout>
+
