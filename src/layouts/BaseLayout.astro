@@ -1,0 +1,48 @@
+---
+const { title, citation } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{title}</title>
+
+  <link rel="stylesheet" href="/style.css" />
+
+  <link rel="me" href="https://orcid.org/0000-0002-7946-6705" />
+  <link rel="me" href="https://scholar.google.com.br/citations?user=Y1aGfSgAAAAJ" />
+
+  {citation && citation.map(c => (
+    <>
+      <meta name="citation_title" content={c.title} />
+      <meta name="citation_author" content={c.author} />
+      {c.journal && <meta name="citation_journal_title" content={c.journal} />}
+      {c.booktitle && <meta name="citation_conference_title" content={c.booktitle} />}
+      {c.year && <meta name="citation_publication_date" content={c.year} />}
+      {c.doi && <meta name="citation_doi" content={c.doi} />}
+    </>
+  ))}
+</head>
+
+<body>
+  <header>
+    <h1>Dr. Marcos Hideo Maruo</h1>
+    <p>Professor of Computing Engineering — UFSM</p>
+
+    <div class="profiles">
+      <a href="https://scholar.google.com.br/citations?user=Y1aGfSgAAAAJ" target="_blank">Google Scholar</a>
+      ·
+      <a href="https://orcid.org/0000-0002-7946-6705" target="_blank">ORCID</a>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer>
+    <p>Contact: marcos.maruo@ufsm.br</p>
+  </footer>
+</body>
+</html>

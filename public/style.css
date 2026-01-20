@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 2em;
+  color: #222;
+}
+
+header h1 {
+  margin-bottom: 0;
+}
+
+.profiles {
+  margin-top: 0.5em;
+  font-size: 0.95em;
+}
+
+h2 {
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.4em;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 1.2em;
+}

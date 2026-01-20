@@ -1,0 +1,14 @@
+{
+  "name": "marcosmaruo-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.0.0",
+    "bibtex-parse-js": "^0.0.24"
+  }
+}

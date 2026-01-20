@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadPublications } from "../lib/publications";
+
+const { journals, conferences } = loadPublications();
+const citation = [...journals, ...conferences];
+---
+
+<BaseLayout title="Dr. Marcos Hideo Maruo" citation={citation}>
+  <section>
+    <h2>Publications</h2>
+
+    <h3>Journal Articles</h3>
+    <ul>
+      {journals.map(p => (
+        <li>
+          <strong>{p.title}</strong><br />
+          {p.author}<br />
+          <em>{p.journal}</em>, {p.year}<br />
+          {p.doi && <a href={`https://doi.org/${p.doi}`} target="_blank">DOI</a>} ·
+          <a href={`/bib/${p._key}.bib`}>BibTeX</a>
+        </li>
+      ))}
+    </ul>
+
+    <h3>Conference Articles</h3>
+    <ul>
+      {conferences.map(p => (
+        <li>
+          <strong>{p.title}</strong><br />
+          {p.author}<br />
+          <em>{p.booktitle}</em>, {p.year}<br />
+          {p.doi && <a href={`https://doi.org/${p.doi}`} target="_blank">DOI</a>} ·
+          <a href={`/bib/${p._key}.bib`}>BibTeX</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
