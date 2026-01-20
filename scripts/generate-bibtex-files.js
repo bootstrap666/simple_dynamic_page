@@ -1,24 +1,42 @@
 import fs from "fs";
 import path from "path";
+import bibtexParse from "bibtex-parse-js";
 import { fileURLToPath } from "url";
-import { loadPublications } from "../src/lib/publications.js";
 
-/* __dirname em ES modules */
+/* __dirname */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/* paths */
+const bibFile = path.resolve(__dirname, "../publications.bib");
 const outDir = path.resolve(__dirname, "../public/bib");
+
 fs.mkdirSync(outDir, { recursive: true });
 
-const { journals, conferences } = loadPublications();
-const all = [...journals, ...conferences];
+/* read + parse bibtex */
+const raw = fs.readFileSync(bibFile, "utf8");
+const entries = bibtexParse.toJSON(raw);
 
-for (const p of all) {
-  if (!p._key || !p.rawBibtex) continue;
+let count = 0;
 
-  const file = path.join(outDir, `${p._key}.bib`);
-  fs.writeFileSync(file, p.rawBibtex.trim() + "\n", "utf8");
+for (const e of entries) {
+  const key = e.citationKey;
+  if (!key) continue;
+
+  const bib = raw.match(
+    new RegExp(`@${e.entryType}\\s*\\{\\s*${key}[\\s\\S]*?\\n\\}`, "m")
+  );
+
+  if (!bib) continue;
+
+  fs.writeFileSync(
+    path.join(outDir, `${key}.bib`),
+    bib[0].trim() + "\n",
+    "utf8"
+  );
+
+  count++;
 }
 
-console.log(`✓ Generated ${all.length} BibTeX files`);
+console.log(`✓ Generated ${count} BibTeX files`);
 
