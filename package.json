@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "ts-node scripts/generate-bibtex-files.ts && astro build",
+    "build": "node scripts/generate-bibtex-files.js && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
