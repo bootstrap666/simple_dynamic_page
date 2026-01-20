@@ -8,6 +8,8 @@ const { title, citation } = Astro.props;
   <meta charset="utf-8" />
   <title>{title}</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <link rel="stylesheet" href="/style.css" />
 
   <link rel="me" href="https://orcid.org/0000-0002-7946-6705" />
@@ -61,7 +63,7 @@ const { title, citation } = Astro.props;
   </div>
 </header>
 
-  <main>
+  <main class="container">
     <slot />
   </main>
 
